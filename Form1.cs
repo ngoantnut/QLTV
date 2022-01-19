@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
@@ -17,6 +18,7 @@ namespace doanv1
         SqlCommand cmd;
         DataView vtest;
         SqlDataAdapter adapter;
+        Bitmap bmp;
         public Form1()
         {
             
@@ -166,9 +168,61 @@ namespace doanv1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
-            printDialog1.Document = printDocument1;
-            printDialog1.ShowDialog();
+            if (dataGridView1.Rows.Count > 0)
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "CSV (*.csv)|*.csv";
+                sfd.FileName = "DataSach.csv";
+                bool fileError = false;
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    if (File.Exists(sfd.FileName))
+                    {
+                        try
+                        {
+                            File.Delete(sfd.FileName);
+                        }
+                        catch (IOException ex)
+                        {
+                            fileError = true;
+                            MessageBox.Show("Không thể ghi dữ liệu " + ex.Message);
+                        }
+                    }
+                    if (!fileError)
+                    {
+                        try
+                        {
+                            int columnCount = dataGridView1.Columns.Count;
+                            string columnNames = "";
+                            string[] outputCsv = new string[dataGridView1.Rows.Count + 1];
+                            for (int i = 0; i < columnCount; i++)
+                            {
+                                columnNames += dataGridView1.Columns[i].HeaderText.ToString() + ",";
+                            }
+                            outputCsv[0] += columnNames;
+
+                            for (int i = 1; i < dataGridView1.Rows.Count; i++)
+                            {
+                                for (int j = 0; j < columnCount; j++)
+                                {
+                                    outputCsv[i] += dataGridView1 .Rows[i - 1].Cells[j].Value.ToString() + ",";
+                                }
+                            }
+
+                            File.WriteAllLines(sfd.FileName, outputCsv, Encoding.UTF8);
+                            MessageBox.Show("Xuất dữ liệu thành công !!!", "Info");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error :" + ex.Message);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Không có dữ liệu để xuất !!!", "Info");
+            }
         }
 
         private void textSearch_TextChanged(object sender, EventArgs e)
@@ -271,7 +325,7 @@ namespace doanv1
 
         private void button7_Click(object sender, EventArgs e)
         {
-            adapter = new SqlDataAdapter("select*  FROM MuonSach, DocGia WHERE HanTra <= DATEADD(day, 7, GETDATE()) and NgayTra is null and MuonSach.MaDG = DocGia.MaDG", cn);
+            adapter = new SqlDataAdapter("exec NguoiTraMuon", cn);
             test = new DataTable("MuonSach");
             adapter.Fill(test);
             vtest = new DataView(test);
@@ -362,7 +416,7 @@ namespace doanv1
 
         private void printDocument2_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            e.Graphics.DrawString(textMaDG.Text, new Font("Time New Roman", 16), Brushes.Black, new Point(100, 100));
+            e.Graphics.DrawImage(bmp, 0, 0);
         }
 
         private void HienTrang_SelectedIndexChanged(object sender, EventArgs e)
@@ -375,9 +429,219 @@ namespace doanv1
             // ptnInthe.Document = printDocument2;
 
             //ptnInthe.ShowDialog();
-            if (ptnInthe.ShowDialog() == DialogResult.OK)
+            /*if (ptnInthe.ShowDialog() == DialogResult.OK)
             {
                 printDocument2.Print();
+            }*/
+            if (dataGridView2.Rows.Count > 0)
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "CSV (*.csv)|*.csv";
+                sfd.FileName = "DataDocGia.csv";
+                bool fileError = false;
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    if (File.Exists(sfd.FileName))
+                    {
+                        try
+                        {
+                            File.Delete(sfd.FileName);
+                        }
+                        catch (IOException ex)
+                        {
+                            fileError = true;
+                            MessageBox.Show("Không thể ghi dữ liệu " + ex.Message);
+                        }
+                    }
+                    if (!fileError)
+                    {
+                        try
+                        {
+                            int columnCount = dataGridView2.Columns.Count;
+                            string columnNames = "";
+                            string[] outputCsv = new string[dataGridView2.Rows.Count + 1];
+                            for (int i = 0; i < columnCount; i++)
+                            {
+                                columnNames += dataGridView2.Columns[i].HeaderText.ToString() + ",";
+                            }
+                            outputCsv[0] += columnNames;
+
+                            for (int i = 1; i  < dataGridView2.Rows.Count; i++)
+                            {
+                                for (int j = 0; j < columnCount; j++)
+                                {
+                                    outputCsv[i] += dataGridView2.Rows[i - 1].Cells[j].Value.ToString() + ",";
+                                }
+                            }
+
+                            File.WriteAllLines(sfd.FileName, outputCsv, Encoding.UTF8);
+                            MessageBox.Show("Xuất dữ liệu thành công !!!", "Info");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error :" + ex.Message);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Không có dữ liệu để xuất !!!", "Info");
+            }
+        }
+
+        private void btnChuaTra_Click(object sender, EventArgs e)
+        {
+            adapter = new SqlDataAdapter("exec ChuaTra", cn);
+            test = new DataTable("MuonSach");
+
+            adapter.Fill(test);
+            vtest = new DataView(test);
+            dataGridView4.DataSource = vtest;
+            MessageBox.Show("Đã xuất danh sách", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnSachHong_Click(object sender, EventArgs e)
+        {
+            adapter = new SqlDataAdapter("exec SachHong", cn);
+            test = new DataTable("MuonSach");
+
+            adapter.Fill(test);
+            vtest = new DataView(test);
+            dataGridView4.DataSource = vtest;
+            MessageBox.Show("Đã xuất danh sách", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void ptnInthe_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            e.Graphics.DrawImage(bmp, 0, 0);
+        }
+
+        private void printPreviewDialog1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnInMuon_Click(object sender, EventArgs e)
+        {
+            if (dataGridView4.Rows.Count > 0)
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "CSV (*.csv)|*.csv";
+                sfd.FileName = "in.csv";
+                bool fileError = false;
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    if (File.Exists(sfd.FileName))
+                    {
+                        try
+                        {
+                            File.Delete(sfd.FileName);
+                        }
+                        catch (IOException ex)
+                        {
+                            fileError = true;
+                            MessageBox.Show("Không thể ghi dữ liệu " + ex.Message);
+                        }
+                    }
+                    if (!fileError)
+                    {
+                        try
+                        {
+                            int columnCount = dataGridView4.Columns.Count;
+                            string columnNames = "";
+                            string[] outputCsv = new string[dataGridView4.Rows.Count + 1];
+                            for (int i = 0; i < columnCount; i++)
+                            {
+                                columnNames += dataGridView4.Columns[i].HeaderText.ToString() + ",";
+                            }
+                            outputCsv[0] += columnNames;
+
+                            for (int i = 1; i < dataGridView4.Rows.Count; i++)
+                            {
+                                for (int j = 0; j < columnCount; j++)
+                                {
+                                    outputCsv[i] += dataGridView4.Rows[i - 1].Cells[j].Value.ToString() + ",";
+                                }
+                            }
+
+                            File.WriteAllLines(sfd.FileName, outputCsv, Encoding.UTF8);
+                            MessageBox.Show("Xuất dữ liệu thành công !!!", "Info");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error :" + ex.Message);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Không có dữ liệu để xuất !!!", "Info");
+            }
+        }
+
+        private void btnInTra_Click(object sender, EventArgs e)
+        {
+            if (dataGridView3.Rows.Count > 0)
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "CSV (*.csv)|*.csv";
+                sfd.FileName = "DataTra.csv";
+                bool fileError = false;
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    if (File.Exists(sfd.FileName))
+                    {
+                        try
+                        {
+                            File.Delete(sfd.FileName);
+                        }
+                        catch (IOException ex)
+                        {
+                            fileError = true;
+                            MessageBox.Show("Không thể ghi dữ liệu " + ex.Message);
+                        }
+                    }
+                    if (!fileError)
+                    {
+                        try
+                        {
+                            int columnCount = dataGridView3.Columns.Count;
+                            string columnNames = "";
+                            string[] outputCsv = new string[dataGridView3.Rows.Count + 1];
+                            for (int i = 0; i < columnCount; i++)
+                            {
+                                columnNames += dataGridView3.Columns[i].HeaderText.ToString() + ",";
+                            }
+                            outputCsv[0] += columnNames;
+
+                            for (int i = 1; i < dataGridView3.Rows.Count; i++)
+                            {
+                                for (int j = 0; j < columnCount; j++)
+                                {
+                                    outputCsv[i] += dataGridView3.Rows[i - 1].Cells[j].Value.ToString() + ",";
+                                }
+                            }
+
+                            File.WriteAllLines(sfd.FileName, outputCsv, Encoding.UTF8);
+                            MessageBox.Show("Xuất dữ liệu thành công !!!", "Info");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error :" + ex.Message);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Không có dữ liệu để xuất !!!", "Info");
             }
         }
     }

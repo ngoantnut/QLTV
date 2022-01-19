@@ -30,6 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.btnInMuon = new System.Windows.Forms.Button();
+            this.btnSachHong = new System.Windows.Forms.Button();
+            this.btnChuaTra = new System.Windows.Forms.Button();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label16 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
@@ -52,6 +55,7 @@
             this.textMaMT = new System.Windows.Forms.TextBox();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnInTra = new System.Windows.Forms.Button();
             this.label24 = new System.Windows.Forms.Label();
             this.MaMT = new System.Windows.Forms.TextBox();
             this.HienTrang = new System.Windows.Forms.ComboBox();
@@ -65,6 +69,7 @@
             this.btnSachXuat = new System.Windows.Forms.Button();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.ptrIn = new System.Windows.Forms.Button();
             this.label27 = new System.Windows.Forms.Label();
             this.txtLop = new System.Windows.Forms.TextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -117,8 +122,7 @@
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printDocument2 = new System.Drawing.Printing.PrintDocument();
             this.printDialog2 = new System.Windows.Forms.PrintDialog();
-            this.ptrIn = new System.Windows.Forms.Button();
-            this.ptnInthe = new System.Windows.Forms.PrintPreviewDialog();
+            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
@@ -139,6 +143,9 @@
             // 
             this.tabPage4.AutoScroll = true;
             this.tabPage4.BackColor = System.Drawing.Color.AliceBlue;
+            this.tabPage4.Controls.Add(this.btnInMuon);
+            this.tabPage4.Controls.Add(this.btnSachHong);
+            this.tabPage4.Controls.Add(this.btnChuaTra);
             this.tabPage4.Controls.Add(this.pictureBox4);
             this.tabPage4.Controls.Add(this.label16);
             this.tabPage4.Controls.Add(this.button7);
@@ -162,9 +169,45 @@
             this.tabPage4.Controls.Add(this.dataGridView4);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(822, 433);
+            this.tabPage4.Size = new System.Drawing.Size(822, 436);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Mượn sách";
+            // 
+            // btnInMuon
+            // 
+            this.btnInMuon.Image = ((System.Drawing.Image)(resources.GetObject("btnInMuon.Image")));
+            this.btnInMuon.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnInMuon.Location = new System.Drawing.Point(49, 386);
+            this.btnInMuon.Name = "btnInMuon";
+            this.btnInMuon.Size = new System.Drawing.Size(91, 28);
+            this.btnInMuon.TabIndex = 30;
+            this.btnInMuon.Text = "   In";
+            this.btnInMuon.UseVisualStyleBackColor = true;
+            this.btnInMuon.Click += new System.EventHandler(this.btnInMuon_Click);
+            // 
+            // btnSachHong
+            // 
+            this.btnSachHong.Image = ((System.Drawing.Image)(resources.GetObject("btnSachHong.Image")));
+            this.btnSachHong.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSachHong.Location = new System.Drawing.Point(695, 386);
+            this.btnSachHong.Name = "btnSachHong";
+            this.btnSachHong.Size = new System.Drawing.Size(91, 28);
+            this.btnSachHong.TabIndex = 29;
+            this.btnSachHong.Text = "    Sách hỏng";
+            this.btnSachHong.UseVisualStyleBackColor = true;
+            this.btnSachHong.Click += new System.EventHandler(this.btnSachHong_Click);
+            // 
+            // btnChuaTra
+            // 
+            this.btnChuaTra.Image = ((System.Drawing.Image)(resources.GetObject("btnChuaTra.Image")));
+            this.btnChuaTra.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnChuaTra.Location = new System.Drawing.Point(360, 386);
+            this.btnChuaTra.Name = "btnChuaTra";
+            this.btnChuaTra.Size = new System.Drawing.Size(112, 28);
+            this.btnChuaTra.TabIndex = 28;
+            this.btnChuaTra.Text = "Chưa trả";
+            this.btnChuaTra.UseVisualStyleBackColor = true;
+            this.btnChuaTra.Click += new System.EventHandler(this.btnChuaTra_Click);
             // 
             // pictureBox4
             // 
@@ -191,11 +234,11 @@
             // 
             this.button7.Image = ((System.Drawing.Image)(resources.GetObject("button7.Image")));
             this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button7.Location = new System.Drawing.Point(209, 386);
+            this.button7.Location = new System.Drawing.Point(188, 386);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(92, 28);
+            this.button7.Size = new System.Drawing.Size(113, 28);
             this.button7.TabIndex = 25;
-            this.button7.Text = "    Sắp hết hạn";
+            this.button7.Text = "   Người trả muộn";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
@@ -203,7 +246,7 @@
             // 
             this.henhan.Image = ((System.Drawing.Image)(resources.GetObject("henhan.Image")));
             this.henhan.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.henhan.Location = new System.Drawing.Point(506, 386);
+            this.henhan.Location = new System.Drawing.Point(528, 386);
             this.henhan.Name = "henhan";
             this.henhan.Size = new System.Drawing.Size(91, 28);
             this.henhan.TabIndex = 24;
@@ -282,7 +325,7 @@
             "Nhàu nát",
             "Cũ bẩn",
             "Rách"});
-            this.TinhTrang.Location = new System.Drawing.Point(309, 109);
+            this.TinhTrang.Location = new System.Drawing.Point(309, 105);
             this.TinhTrang.Name = "TinhTrang";
             this.TinhTrang.Size = new System.Drawing.Size(121, 21);
             this.TinhTrang.TabIndex = 16;
@@ -377,6 +420,7 @@
             // 
             this.tabPage3.AutoScroll = true;
             this.tabPage3.BackColor = System.Drawing.Color.AliceBlue;
+            this.tabPage3.Controls.Add(this.btnInTra);
             this.tabPage3.Controls.Add(this.label24);
             this.tabPage3.Controls.Add(this.MaMT);
             this.tabPage3.Controls.Add(this.HienTrang);
@@ -391,9 +435,21 @@
             this.tabPage3.Controls.Add(this.dataGridView3);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(822, 433);
+            this.tabPage3.Size = new System.Drawing.Size(822, 436);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Trả Sách";
+            // 
+            // btnInTra
+            // 
+            this.btnInTra.Image = ((System.Drawing.Image)(resources.GetObject("btnInTra.Image")));
+            this.btnInTra.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnInTra.Location = new System.Drawing.Point(357, 404);
+            this.btnInTra.Name = "btnInTra";
+            this.btnInTra.Size = new System.Drawing.Size(88, 29);
+            this.btnInTra.TabIndex = 35;
+            this.btnInTra.Text = "In";
+            this.btnInTra.UseVisualStyleBackColor = true;
+            this.btnInTra.Click += new System.EventHandler(this.btnInTra_Click);
             // 
             // label24
             // 
@@ -415,8 +471,10 @@
             // 
             this.HienTrang.FormattingEnabled = true;
             this.HienTrang.Items.AddRange(new object[] {
-            "Mượn về",
-            "Đọc tại chỗ"});
+            "Nguyên vẹn",
+            "Nhàu nát",
+            "Cũ bẩn",
+            "Rách"});
             this.HienTrang.Location = new System.Drawing.Point(137, 105);
             this.HienTrang.Name = "HienTrang";
             this.HienTrang.Size = new System.Drawing.Size(121, 21);
@@ -450,7 +508,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(485, 0);
+            this.pictureBox3.Location = new System.Drawing.Point(491, 13);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(64, 64);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -462,7 +520,7 @@
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.ForeColor = System.Drawing.Color.Red;
-            this.label21.Location = new System.Drawing.Point(573, 15);
+            this.label21.Location = new System.Drawing.Point(579, 28);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(151, 26);
             this.label21.TabIndex = 5;
@@ -472,7 +530,7 @@
             // 
             this.button9.Image = ((System.Drawing.Image)(resources.GetObject("button9.Image")));
             this.button9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button9.Location = new System.Drawing.Point(578, 151);
+            this.button9.Location = new System.Drawing.Point(413, 151);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(96, 32);
             this.button9.TabIndex = 4;
@@ -484,7 +542,7 @@
             // 
             this.btnSuaS.Image = ((System.Drawing.Image)(resources.GetObject("btnSuaS.Image")));
             this.btnSuaS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSuaS.Location = new System.Drawing.Point(418, 151);
+            this.btnSuaS.Location = new System.Drawing.Point(262, 151);
             this.btnSuaS.Name = "btnSuaS";
             this.btnSuaS.Size = new System.Drawing.Size(91, 32);
             this.btnSuaS.TabIndex = 3;
@@ -496,7 +554,7 @@
             // 
             this.btnSachXuat.Image = ((System.Drawing.Image)(resources.GetObject("btnSachXuat.Image")));
             this.btnSachXuat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSachXuat.Location = new System.Drawing.Point(85, 151);
+            this.btnSachXuat.Location = new System.Drawing.Point(93, 151);
             this.btnSachXuat.Name = "btnSachXuat";
             this.btnSachXuat.Size = new System.Drawing.Size(109, 32);
             this.btnSachXuat.TabIndex = 1;
@@ -510,7 +568,7 @@
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView3.Location = new System.Drawing.Point(3, 206);
             this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.Size = new System.Drawing.Size(780, 220);
+            this.dataGridView3.Size = new System.Drawing.Size(816, 191);
             this.dataGridView3.TabIndex = 0;
             this.dataGridView3.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
             // 
@@ -540,9 +598,21 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(822, 433);
+            this.tabPage2.Size = new System.Drawing.Size(822, 436);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Độc giả";
+            // 
+            // ptrIn
+            // 
+            this.ptrIn.Image = ((System.Drawing.Image)(resources.GetObject("ptrIn.Image")));
+            this.ptrIn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ptrIn.Location = new System.Drawing.Point(422, 162);
+            this.ptrIn.Name = "ptrIn";
+            this.ptrIn.Size = new System.Drawing.Size(104, 32);
+            this.ptrIn.TabIndex = 20;
+            this.ptrIn.Text = "In thẻ";
+            this.ptrIn.UseVisualStyleBackColor = true;
+            this.ptrIn.Click += new System.EventHandler(this.ptrIn_Click);
             // 
             // label27
             // 
@@ -722,9 +792,9 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(822, 433);
+            this.tabPage1.Size = new System.Drawing.Size(822, 436);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Đầu sách";
+            this.tabPage1.Text = "Sách";
             // 
             // dataGridView1
             // 
@@ -834,7 +904,7 @@
             this.pictureBox1.InitialImage = null;
             this.pictureBox1.Location = new System.Drawing.Point(492, 7);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(72, 72);
+            this.pictureBox1.Size = new System.Drawing.Size(64, 64);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 20;
             this.pictureBox1.TabStop = false;
@@ -866,7 +936,7 @@
             // 
             this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(692, 166);
+            this.button2.Location = new System.Drawing.Point(710, 166);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(82, 26);
             this.button2.TabIndex = 16;
@@ -881,9 +951,9 @@
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button1.Location = new System.Drawing.Point(590, 167);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(79, 25);
+            this.button1.Size = new System.Drawing.Size(96, 25);
             this.button1.TabIndex = 15;
-            this.button1.Text = "  Xóa";
+            this.button1.Text = "Thanh lý";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -1029,12 +1099,16 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(830, 459);
+            this.tabControl1.Size = new System.Drawing.Size(830, 462);
             this.tabControl1.TabIndex = 2;
             // 
             // printDialog1
             // 
             this.printDialog1.UseEXDialog = true;
+            // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
             // 
             // printDocument2
             // 
@@ -1044,25 +1118,16 @@
             // 
             this.printDialog2.UseEXDialog = true;
             // 
-            // ptrIn
+            // printPreviewDialog1
             // 
-            this.ptrIn.Location = new System.Drawing.Point(422, 162);
-            this.ptrIn.Name = "ptrIn";
-            this.ptrIn.Size = new System.Drawing.Size(104, 32);
-            this.ptrIn.TabIndex = 20;
-            this.ptrIn.Text = "In thẻ";
-            this.ptrIn.UseVisualStyleBackColor = true;
-            this.ptrIn.Click += new System.EventHandler(this.ptrIn_Click);
-            // 
-            // ptnInthe
-            // 
-            this.ptnInthe.AutoScrollMargin = new System.Drawing.Size(0, 0);
-            this.ptnInthe.AutoScrollMinSize = new System.Drawing.Size(0, 0);
-            this.ptnInthe.ClientSize = new System.Drawing.Size(400, 300);
-            this.ptnInthe.Enabled = true;
-            this.ptnInthe.Icon = ((System.Drawing.Icon)(resources.GetObject("ptnInthe.Icon")));
-            this.ptnInthe.Name = "ptnInthe";
-            this.ptnInthe.Visible = false;
+            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.Enabled = true;
+            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+            this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.Visible = false;
+            this.printPreviewDialog1.Load += new System.EventHandler(this.printPreviewDialog1_Load);
             // 
             // Form1
             // 
@@ -1191,7 +1256,11 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button ptrIn;
         private System.Windows.Forms.PrintDialog printDialog2;
-        private System.Windows.Forms.PrintPreviewDialog ptnInthe;
+        private System.Windows.Forms.Button btnChuaTra;
+        private System.Windows.Forms.Button btnSachHong;
+        private System.Windows.Forms.Button btnInMuon;
+        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
+        private System.Windows.Forms.Button btnInTra;
     }
 }
 
